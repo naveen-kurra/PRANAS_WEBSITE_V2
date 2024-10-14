@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            color: #45f3ff;
+        }
+        body, html {
+            padding:0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            
+            min-height: 100vh;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        header {
+            background-color: #333;
+            padding: 30px;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+
+        .logo {
+            width: 100px; /* Adjust the width of the logo as needed */
+            height: auto;
+            vertical-align: middle;
+            margin-right: 10px; /* Adjust the margin between the logo and text as needed */
+        }
+        .head1{
+            display: flex;
+            justify-content: center;
+            /*justify-content: space-between;*/
+        }
+        .head2{
+            margin-right: 20px; /* Adjust the space between images as needed */
+        }
+        footer {
+            background-color: #333;
+            padding: 30px;
+            text-align: center;
+            position: absolute;
+            bottom:0;
+            width: 100%;
+            
+        }
+        video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1; /* Place the video behind other elements */
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+        }
+        .welcome_box_container{
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            
+        }
+        .welcome-box{
+            display: inline-block;
+            align-items: center;
+            align-content: center;
+            border-radius: 10px;
+            background-color: #333333;
+            margin: 1px ;
+            padding: 20px;
+
+        }
+        .content{
+            display: flex;
+            justify-content: space-between;
+        }
+        .box1{
+            z-index: 2;
+            padding: 20px;
+            width: 30%;
+            background-color: #333333;
+            border-radius: 20px;
+            margin:20px;
+            height: 400px;
+            opacity: 0.5;
+            
+        }
+        .box2{
+            margin-left: auto;
+            z-index: 2;
+            padding: 20px;
+            width: 50%;
+            background-color: #333333;
+            border-radius: 20px;
+            margin:20px;
+            height: 400px;
+            opacity: 0.9;
+        }
+        .box_1_heading_container{
+            text-align: center;
+        }
+        .box_1_heading{
+            display: inline-block;
+        }
+        .radio-group{
+            padding: 10px;
+        }
+        input{
+            padding:10px;
+        }
+        .input-box{
+            display: none;
+        }
+        .form-items{
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .output_placeholder_container{
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .Op_button button[type="submit"] {
+            background-color:aquamarine;
+
+            border: none; 
+            color:black; 
+            padding: 16px 32px; 
+            text-decoration: none; 
+            margin: 10px 0; /* Margin between buttons */
+            cursor: pointer; 
+            border-radius: 5px; 
+            transition-duration: 0.4s; 
+            width: 350px; /* Fixed width */
+            height: 50px; /* Fixed height */
+            font-size: 17px;
+            opacity: 0.9;
+        } 
+        
+        
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="head1">
+            <div class="head2">
+                <a href="{{ url_for('Home') }}">
+                    <img src="{{ url_for('static', filename='image1.jpeg') }}" alt="Logo" class="logo">
+                </a>
+            </div>
+            <div class="head2">
+                <h1>PRANAS DATA ANALYSER</h1>
+            </div>
+            
+        </div>
+    </header>
+    <video autoplay muted loop>
+        <source src="{{ url_for('static', filename='web1.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+    </video>
+    <div class="welcome_box_container">
+        <div class="welcome-box">
+            <h1 class="welcome-box-text"><center>Welcome to Breathe Analyser</center></h1>
+        </div>
+    </div>
+    <div class="content">
+        <div class="box1">
+            <div class="box_1_heading_container">
+                <h2 class="box_1_heading">INPUT PROCESSOR</h2>
+            </div>
+            <div class="form-items">
+                <div class="wrapper">
+                    <form action="{{ url_for('rawData')}}" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
+                        <div class="radio-group">
+                           
+                            <label class="radio-label">
+                            <input type="radio" name="radioOption" value="rdata" class="radio-input" onchange="showInputBox();"> Rawdata
+                            </label>
+                             
+                        </div>
+                          <div class="input-box" id="inputBox">
+                            <label for="csv_file">Data File:</label><br>
+                            <input type="file" id="csv_file" name="csv_file" accept=".csv"><br><br>
+                            <div class="label_location">
+                                <div class="f-submit"><button id="sub" type="submit ">SUBMIT</button></div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class ="Op_button">
+                        <form action="{{ url_for('redirect_to_breathepage') }}" method="get">
+                            <button type="submit"> Please click here to visit home Page</button>
+                        </form>
+                    </div>
+                    
+                </div>       
+            </div>
+        </div>
+
+        <div class=" box2" >
+            <h2><center>PROCESSOR OUTPUT</center></h2>
+            <div class="output1">
+                <div class="output_placeholder_container">
+                    <h1 class="output_placeholder"><center>{{sample_placeholder}}</center></h1>
+                    {%if img_base64%}
+                    <div class="returned_image">
+                        <img src="data:image/png;base64,{{ img_base64 }}" alt="PLOT" style="width: 500px; height: 300px;">
+                    </div>
+                    {%endif%}
+                    
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© DICE lab, College of Engineering, University of Georgia, Athens, GA, 30602.</p>
+    </footer>
+    <script>
+
+
+        function validateForm() {
+            var radioInputs = document.querySelectorAll(".radio-input");
+
+            for (var i = 0; i < radioInputs.length; i++) {
+                if (radioInputs[i].checked) {
+                    // If "Clustering" is selected, ensure a sub-radio button is also selected
+                    
+                    
+                    return true; // Submit the form
+            
+            }
+        }
+    }
+    function showInputBox() {
+            var inputBox = document.getElementById("inputBox");
+            var radioInputs = document.querySelectorAll(".radio-input");
+            for (var i = 0; i < radioInputs.length; i++) {
+                if (radioInputs[i].checked) {
+                    inputBox.style.display = "block";
+                }
+            }
+        }
+        
+       
+    </script>
+</body>
+</html>
